@@ -27,13 +27,16 @@ function Counter() {
   );
 }
 
-// main function where the component render
+// main function where the component render and this never unmounts.
 function App() {
+  let conditionalRender = true;
   return (
     <>
       <div>
         <h1>Hi, there</h1>
-        <Counter></Counter>
+        {/* conditional rendering */}
+        {conditionalRender ? <Counter></Counter> : null}{" "}
+        {/* this is the turnary operator */}
       </div>
     </>
   );
