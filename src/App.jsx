@@ -1,7 +1,24 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-// defining the component
+// main function where the component render and this never unmounts.
+function App() {
+  const [random, setRandom] = useState(0);
+  let conditionalRender = true;
+  return (
+    <>
+      <div>
+        <h1>Hi, there</h1>
+        {/* conditional rendering */}
+        {conditionalRender ? <Counter></Counter> : null}{" "}
+        <Counter2 x={random} y={setRandom} />
+        {/* this is the turnary operator */}
+      </div>
+    </>
+  );
+}
+
+// defining the component - for understanding useState and useEffect
 function Counter() {
   const [count, setCounter] = useState(0);
 
@@ -27,18 +44,33 @@ function Counter() {
   );
 }
 
-// main function where the component render and this never unmounts.
-function App() {
-  let conditionalRender = true;
+// defining another component - for understanding props
+function Counter2(props) {
+  function increaseCount() {
+    props.y(props.x + 1);
+  }
+  function decreaseCount() {
+    props.y(props.x - 1);
+  }
+
+  useEffect(() => {
+    console.log("the counter2 has mounted on to the DOM"); // this will run only once because of empty dependancy array
+  }, []);
+
+  useEffect(() => {
+    console.log("counter2 has changed");
+
+    return () => {
+      console.log("counter 2 has unmounted - CLEANUP"); // this will run everytime before the counter2 is about to update and re-render on DOM
+    };
+  }, [props.x]); // this will run everytime random gets changed
+
   return (
-    <>
-      <div>
-        <h1>Hi, there</h1>
-        {/* conditional rendering */}
-        {conditionalRender ? <Counter></Counter> : null}{" "}
-        {/* this is the turnary operator */}
-      </div>
-    </>
+    <div>
+      <h1>{props.x} ~ comming from props</h1>
+      <button onClick={increaseCount}>increase Counter</button>
+      <button onClick={decreaseCount}>decrease Counter</button>
+    </div>
   );
 }
 
