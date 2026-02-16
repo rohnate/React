@@ -7,11 +7,15 @@ export default function Notification() {
     setCount((c) => c + 1);
   }
 
-//   useEffect(() => {
-//     setInterval(() => {
-//       setCount((c) => (c + 1));
-//     }, 5000);
-//   }, []);
+  //   useEffect(() => {
+  //     setInterval(() => {
+  //       setCount((c) => (c + 1));
+  //     }, 5000);
+  //   }, []);    // this is not tracking any dependancy(any variable or anyting which can be tracked) because this dependancy array is empty.
+
+  useEffect(() => {
+    console.log("The count has just changed");
+  }, [count]); // this'll run on mount first and then will run whenever the count gets changed.
 
   return (
     <div style={{ display: "flex" }}>
