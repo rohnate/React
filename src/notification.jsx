@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Notification() {
   const [count, setCount] = useState(0);
@@ -6,6 +6,12 @@ export default function Notification() {
   function subscribe() {
     setCount((c) => c + 1);
   }
+
+//   useEffect(() => {
+//     setInterval(() => {
+//       setCount((c) => (c + 1));
+//     }, 5000);
+//   }, []);
 
   return (
     <div style={{ display: "flex" }}>
