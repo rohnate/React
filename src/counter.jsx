@@ -6,16 +6,22 @@ export default function Timer() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    setInterval(() => {
+    const timerr = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
-  }, []);
+
+    return () => {
+      clearInterval(timerr);
+      setCount(0);
+    };
+  }, [visible]);
+
+  //* This runs when: Before effect runs again, Or when component unmounts, So when visible changes: Old interval is cleared, Count is reset to 0, New interval starts
 
   useEffect(() => {
-    const hide = setInterval(() => {
-      setVisible(c=>!c);
+    setInterval(() => {
+      setVisible((c) => !c);
     }, 5000);
-
   }, []);
 
   return (
