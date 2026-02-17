@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Notification from "./notification";
+import Timer from "./counter";
 
 // main function where the component render and this never unmounts.
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <>
       <div>
         <Notification />
+        <Timer/>
         <h1>Hi, there</h1>
         {/* conditional rendering */}
         {conditionalRender ? <Counter></Counter> : null}{" "}
