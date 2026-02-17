@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Notification from "./notification";
 import Timer from "./counter";
+import Greetings from "./children";
 
 // main function where the component render and this never unmounts.
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <div>
         <Notification />
         <Timer/>
+        <Greetings>KrishnaMantraDhiDevta</Greetings>  {/* here i am passing children inside the greetings tag */}
         <h1>Hi, there</h1>
         {/* conditional rendering */}
         {conditionalRender ? <Counter></Counter> : null}{" "}
