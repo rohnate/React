@@ -179,3 +179,110 @@ The `return` function inside `useEffect` runs when component is removed.
     * The effect runs after rendering.
     * It runs on mount and also on re-render depending on dependencies.
     * The returned function runs before unmounting and before the next effect execution.
+
+
+ 
+# Error Boundary :
+
+        Short answer:
+        👉 **Yes, it is important — but not in the beginning.**
+
+        Since you’re building React apps seriously, you should understand it conceptually.
+
+        ---
+
+        # 🧠 First, What Is an Error Boundary?
+
+        An **Error Boundary** is a special React component that:
+
+        * Catches JavaScript errors in child components
+        * Prevents the whole app from crashing
+        * Shows a fallback UI instead
+
+        ---
+
+        ## 🔴 Without Error Boundary
+
+        If one component crashes:
+
+        ```javascript
+        throw new Error("Something broke!");
+        ```
+
+        👉 Entire React app crashes
+        👉 White screen
+
+        ---
+
+        ## 🟢 With Error Boundary
+
+        Instead of crashing, React shows:
+
+        ```
+        Something went wrong.
+        ```
+
+        The rest of the app still works.
+
+        ---
+
+        # 🔥 Why Is It Important?
+
+        Imagine you're building:
+
+        * Dashboard
+        * Admin panel
+        * E-commerce
+        * SaaS product
+
+        If one small widget crashes, you don't want the entire app to die.
+
+        Error Boundary = Safety Net 🛟
+
+        ---
+
+        # ⚠️ Very Important Thing
+
+        Error Boundaries:
+
+        * ❌ Do NOT catch errors in event handlers
+        * ❌ Do NOT catch async errors (like setTimeout)
+        * ✅ Catch errors during rendering
+        * ✅ Catch lifecycle method errors
+
+        ---
+
+        # 💡 How It Is Written
+
+        Error Boundaries only work in **Class Components**.
+
+        Example:
+
+        ```javascript
+        class ErrorBoundary extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { hasError: false };
+        }
+
+        static getDerivedStateFromError(error) {
+            return { hasError: true };
+        }
+
+        render() {
+            if (this.state.hasError) {
+            return <h2>Something went wrong.</h2>;
+            }
+
+            return this.props.children;
+        }
+        }
+        ```
+
+        Then wrap components:
+
+        ```javascript
+        <ErrorBoundary>
+        <MyComponent />
+        </ErrorBoundary>
+        ```
