@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Notification from "./notification";
 import Timer from "./counter";
 import Greetings from "./children";
+import { Link } from "react-router-dom";
 
 // main function where the component render and this never unmounts.
 function Part1() {
@@ -11,13 +12,15 @@ function Part1() {
     <>
       <div>
         <Notification />
-        <Timer/>
-        <Greetings>KrishnaMantraDhiDevta</Greetings>  {/* here i am passing children inside the greetings tag */}
+        <Timer />
+        <Greetings>KrishnaMantraDhiDevta</Greetings>{" "}
+        {/* here i am passing children inside the greetings tag */}
         <h1>Hi, there</h1>
         {/* conditional rendering */}
         {conditionalRender ? <Counter></Counter> : null}{" "}
-        <Counter2 x={random} y={setRandom} />
         {/* this is the turnary operator */}
+        <Counter2 x={random} y={setRandom} />
+        <Link to="/">Back to Home</Link>
       </div>
     </>
   );

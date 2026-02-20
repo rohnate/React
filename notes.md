@@ -1,191 +1,191 @@
 # lifecycle Events
-- The first render of the component on to the DOM is known as lifecycle event.
+        - The first render of the component on to the DOM is known as lifecycle event.
 
-1. Mounting (Birth of Component)
+        1. Mounting (Birth of Component)
 
-👉 When the component is created and added to the screen (DOM).
+        👉 When the component is created and added to the screen (DOM).
 
-Example:
+        Example:
 
-* You open a page.
-* A `Login` component appears.
-* That means it is **mounted**.
-
-
-2. Updating (Component Changes)
-
-👉 When component data (state or props) changes.
-
-Example:
-
-* You click a button.
-* Counter increases.
-* Component re-renders.
-
-3. Unmounting (Component Removed)
-
-👉 When component is removed from screen.
-
-Example:
-
-* You change page.
-* Previous component disappears.
+        * You open a page.
+        * A `Login` component appears.
+        * That means it is mounted.
 
 
-The `return` function inside `useEffect` runs when component is removed.
+        2. Updating (Component Changes)
 
-- In Short
+        👉 When component data (state or props) changes.
 
-| Phase      | What Happens         |
-| ---------- | -------------------- |
-| Mounting   | Component created    |
-| Updating   | Component re-renders |
-| Unmounting | Component removed    |
+        Example:
 
-- Important
+        * You click a button.
+        * Counter increases.
+        * Component re-renders.
 
-* In **Class Components**, we had:
+        3. Unmounting (Component Removed)
 
-  * `componentDidMount()`
-  * `componentDidUpdate()`
-  * `componentWillUnmount()`
+        👉 When component is removed from screen.
 
-* In **Function Components**, we use:
+        Example:
 
-  * `useEffect()` to handle all lifecycle events.
+        * You change page.
+        * Previous component disappears.
+
+
+        The `return` function inside `useEffect` runs when component is removed.
+
+        - In Short
+
+        | Phase      | What Happens         |
+        | ---------- | -------------------- |
+        | Mounting   | Component created    |
+        | Updating   | Component re-renders |
+        | Unmounting | Component removed    |
+
+        - Important
+
+        * In Class Components, we had:
+
+        * `componentDidMount()`
+        * `componentDidUpdate()`
+        * `componentWillUnmount()`
+
+        * In Function Components, we use:
+
+        * `useEffect()` to handle all lifecycle events.
 
 # useEffect:
 
-    `useEffect` does **not always run only on mount**.
-    It depends on the **dependency array**.
+        `useEffect` does not always run only on mount.
+        It depends on the dependency array.
 
-    ---
+        ---
 
-    ## 1️⃣ Case 1: No dependency array
+        ## 1️⃣ Case 1: No dependency array
 
-    ```js
-    useEffect(() => {
-        console.log("Effect runs");
-    });
-    ```
+        ```js
+        useEffect(() => {
+            console.log("Effect runs");
+        });
+        ```
 
-    👉 This runs:
+        👉 This runs:
 
-    * After **every render**
-    * First mount ✅
-    * Every re-render ✅
+        * After every render
+        * First mount ✅
+        * Every re-render ✅
 
-    So here it is **NOT ignored during re-rendering**.
+        So here it is NOT ignored during re-rendering.
 
-    ---
+        ---
 
-    ## 2️⃣ Case 2: Empty dependency array `[]`
+        ## 2️⃣ Case 2: Empty dependency array `[]`
 
-    ```js
-    useEffect(() => {
-        console.log("Runs only once");
-    }, []);
-    ```
+        ```js
+        useEffect(() => {
+            console.log("Runs only once");
+        }, []);
+        ```
 
-    👉 This runs:
+        👉 This runs:
 
-    * Only once after the first render (mount) ✅
-    * Not on re-renders ❌
+        * Only once after the first render (mount) ✅
+        * Not on re-renders ❌
 
-    In this case, your statement is correct.
+        In this case, your statement is correct.
 
-    ---
+        ---
 
-    ## 3️⃣ Case 3: With dependencies
+        ## 3️⃣ Case 3: With dependencies
 
-    ```js
-    useEffect(() => {
-        console.log("Runs when count changes");
-    }, [count]);
-    ```
+        ```js
+        useEffect(() => {
+            console.log("Runs when count changes");
+        }, [count]);
+        ```
 
-    👉 This runs:
+        👉 This runs:
 
-    * On mount ✅
-    * Whenever `count` changes ✅
-    * Not on other re-renders ❌
+        * On mount ✅
+        * Whenever `count` changes ✅
+        * Not on other re-renders ❌
 
-    ---
+        ---
 
-    # Now About the Cleanup Function
+        # Now About the Cleanup Function
 
-    ```js
-    useEffect(() => {
-        console.log("Effect");
+        ```js
+        useEffect(() => {
+            console.log("Effect");
 
-        return () => {
-        console.log("Cleanup");
-        };
-    }, []);
-    ```
+            return () => {
+            console.log("Cleanup");
+            };
+        }, []);
+        ```
 
-    The returned function (cleanup) runs:
+        The returned function (cleanup) runs:
 
-    1. ✅ Before the component unmounts
-    2. ✅ Before the effect runs again (if dependencies change)
+        1. ✅ Before the component unmounts
+        2. ✅ Before the effect runs again (if dependencies change)
 
-    Very important:
+        Very important:
 
-    If dependencies exist:
+        If dependencies exist:
 
-    ```js
-    useEffect(() => {
-        console.log("Effect runs");
+        ```js
+        useEffect(() => {
+            console.log("Effect runs");
 
-        return () => {
-        console.log("Cleanup runs before next effect");
-        };
-    }, [count]);
-    ```
+            return () => {
+            console.log("Cleanup runs before next effect");
+            };
+        }, [count]);
+        ```
 
-    When `count` changes:
+        When `count` changes:
 
-    1. Cleanup runs first
-    2. Then effect runs again
+        1. Cleanup runs first
+        2. Then effect runs again
 
-    ---
+        ---
 
-    # 🔥 Simple Timeline Example
+        # 🔥 Simple Timeline Example
 
-    If `count` changes 3 times:
+        If `count` changes 3 times:
 
-    ```
-    Mount:
-    Effect runs
+        ```
+        Mount:
+        Effect runs
 
-    count changes:
-    Cleanup runs
-    Effect runs
+        count changes:
+        Cleanup runs
+        Effect runs
 
-    count changes:
-    Cleanup runs
-    Effect runs
+        count changes:
+        Cleanup runs
+        Effect runs
 
-    Unmount:
-    Cleanup runs
-    ```
+        Unmount:
+        Cleanup runs
+        ```
 
-    ---
+        ---
 
-    # ✅ Final Correct Understanding
+        # ✅ Final Correct Understanding
 
-    Your statement is **partially correct**, but more accurate version is:
+        Your statement is partially correct, but more accurate version is:
 
-    * The effect runs after rendering.
-    * It runs on mount and also on re-render depending on dependencies.
-    * The returned function runs before unmounting and before the next effect execution.
+        * The effect runs after rendering.
+        * It runs on mount and also on re-render depending on dependencies.
+        * The returned function runs before unmounting and before the next effect execution.
 
 
  
 # Error Boundary :
 
         Short answer:
-        👉 **Yes, it is important — but not in the beginning.**
+        👉 Yes, it is important — but not in the beginning.
 
         Since you’re building React apps seriously, you should understand it conceptually.
 
@@ -193,7 +193,7 @@ The `return` function inside `useEffect` runs when component is removed.
 
         # 🧠 First, What Is an Error Boundary?
 
-        An **Error Boundary** is a special React component that:
+        An Error Boundary is a special React component that:
 
         * Catches JavaScript errors in child components
         * Prevents the whole app from crashing
@@ -254,7 +254,7 @@ The `return` function inside `useEffect` runs when component is removed.
 
         # 💡 How It Is Written
 
-        Error Boundaries only work in **Class Components**.
+        Error Boundaries only work in Class Components.
 
         Example:
 
@@ -286,3 +286,134 @@ The `return` function inside `useEffect` runs when component is removed.
         <MyComponent />
         </ErrorBoundary>
         ```
+
+# What is `useNavigate()` ?
+
+        `useNavigate()` is a hook from react-router-dom.
+
+        It lets you move to another page using JavaScript.
+
+        👉 It is programmatic navigation.
+
+        ---
+
+        # 🧠 Simple Meaning
+
+        Instead of clicking a `<Link />`,
+        you tell React:
+
+        > “Go to this page now.”
+
+        ---
+
+        # 🔹 Basic Example
+
+        ```jsx
+        import { useNavigate } from "react-router-dom";
+
+        function Home() {
+        const navigate = useNavigate();
+
+        return (
+            <button onClick={() => navigate("/part1")}>
+            Go to Part 1
+            </button>
+        );
+        }
+        ```
+
+        When button is clicked →
+        React changes URL to `/part1`.
+
+        ---
+
+        # 🔥 When Do We Use It?
+
+        You use `useNavigate()` when:
+
+        * After login → go to dashboard
+        * After form submit → go to success page
+        * After logout → go to home
+        * If user not authenticated → redirect to login
+
+        Example:
+
+        ```jsx
+        if (!user) {
+        navigate("/login");
+        }
+        ```
+
+        ---
+
+        # 🔁 Go Back / Forward
+
+        You can also move in history.
+
+        ```jsx
+        navigate(-1); // go back
+        navigate(1);  // go forward
+        ```
+
+        Very useful for back button behavior.
+
+        ---
+
+        # 🧠 What Is Happening Internally?
+
+        React Router:
+
+        * Updates browser history
+        * Changes URL
+        * Finds matching `<Route>`
+        * Renders that component
+        * WITHOUT reloading page
+
+        That’s why it feels fast.
+
+        ---
+
+        # ⚠️ Important
+
+        `useNavigate()`:
+
+        * Only works inside components
+        * Must be used inside `<BrowserRouter>`
+
+        ---
+
+        # 🆚 Link vs useNavigate
+
+        | Link              | useNavigate        |
+        | ----------------- | ------------------ |
+        | Used in UI        | Used in logic      |
+        | Click based       | Code based         |
+        | Static navigation | Dynamic navigation |
+
+        ---
+
+        # 🎯 Example Real Scenario
+
+        Login form:
+
+        ```jsx
+        function Login() {
+        const navigate = useNavigate();
+
+        function handleLogin() {
+            // login logic
+            navigate("/dashboard");
+        }
+
+        return <button onClick={handleLogin}>Login</button>;
+        }
+        ```
+
+        After login → user goes to dashboard automatically.
+
+        ---
+
+        # TL;DR
+
+        `useNavigate()` lets you change page using JavaScript instead of clicking a link.
+
