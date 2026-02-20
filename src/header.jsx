@@ -6,6 +6,7 @@ export default function Header() {
       <Link to="/home">Home</Link>
       <Link to="/learning/part1">Part-1</Link>
       <Link to="/about">About</Link>
+      <Link to="/useRef">useRef</Link>
     </div>
   );
 }

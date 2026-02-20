@@ -6,6 +6,7 @@ import About from "./about";
 import Nopage from "./noPage";
 import Header from "./header";
 import Footer from "./footer";
+import Useref from "./useRef";
 
 function App() {
   return (
@@ -13,11 +14,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {" "}
+            {/* path tells React Router: “If the browser URL matches this value, render this component.” */}{" "}
             {/* This is the parent route which contains all the children route which starts with "/" */}
             <Route path="/home" element={<Home />} />
             <Route path="/learning/part1" element={<Part1 />} />
             <Route path="/about" element={<About />} />
+            <Route path="/useRef" element={<Useref/>}/>
           </Route>
           <Route path="*" element={<Nopage />} />{" "}
           {/* This "*" will catch all the routes other then defined one's to show the Nopage component */}
@@ -33,7 +35,7 @@ function Layout() {
       <Header />
       <div style={{ height: "90vh" }}>
         <Outlet />{" "}
-        {/* With the Outlet function which react dom provides Layout components will render its children routes. */}
+        {/* With the Outlet function which react dom provides, parent route will render its children routes inside the Layout component. <Outlet /> is where child routes appear. */}
       </div>
       <Footer />
     </div>
