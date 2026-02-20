@@ -13,7 +13,7 @@ function Part1() {
       <div>
         <Notification />
         <Timer />
-        <Greetings>KrishnaMantraDhiDevta</Greetings>{" "}
+        <Greetings>itsRss</Greetings>{" "}
         {/* here i am passing children inside the greetings tag */}
         <h1>Hi, there</h1>
         {/* conditional rendering */}
