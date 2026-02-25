@@ -7,6 +7,7 @@ export default function Header() {
       <Link to="/learning/part1">Part-1</Link>
       <Link to="/about">About</Link>
       <Link to="/useRef">useRef</Link>
+      <Link to="/timer">Timer</Link>
     </div>
   );
 }

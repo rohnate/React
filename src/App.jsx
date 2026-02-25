@@ -7,6 +7,7 @@ import Nopage from "./noPage";
 import Header from "./header";
 import Footer from "./footer";
 import Useref from "./useRef";
+import Timer from "./timer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/learning/part1" element={<Part1 />} />
             <Route path="/about" element={<About />} />
             <Route path="/useRef" element={<Useref/>}/>
+            <Route path="/timer" element={<Timer/>}/>
           </Route>
           <Route path="*" element={<Nopage />} />{" "}
           {/* This "*" will catch all the routes other then defined one's to show the Nopage component */}
