@@ -417,3 +417,139 @@
 
         `useNavigate()` lets you change page using JavaScript instead of clicking a link.
 
+
+# 🧠 What is Prop Drilling?
+
+        Prop drilling happens when:
+
+        You pass data from a parent
+        ➡ through multiple middle components
+        ➡ just to reach a deeply nested child.
+
+        Even if middle components don’t need that data.
+
+        ---
+
+        # 🔍 Simple Example
+
+        Imagine this structure:
+
+        ```
+        App
+        └── Parent
+            └── Child
+                └── GrandChild
+        ```
+
+        Now suppose `App` has some state:
+
+        ```jsx
+        const [user, setUser] = useState("Rahul");
+        ```
+
+        And `GrandChild` needs `user`.
+
+        ---
+
+        ## ❌ What We Do (Prop Drilling)
+
+        ```jsx
+        <App>
+        <Parent user={user} />
+        </App>
+        ```
+
+        Then:
+
+        ```jsx
+        <Parent user={user}>
+        <Child user={user} />
+        </Parent>
+        ```
+
+        Then:
+
+        ```jsx
+        <Child user={user}>
+        <GrandChild user={user} />
+        </Child>
+        ```
+
+        Finally:
+
+        ```jsx
+        function GrandChild({ user }) {
+        return <h1>{user}</h1>;
+        }
+        ```
+
+        ---
+
+        # 🚨 Problem
+
+        * Parent doesn’t use `user`
+        * Child doesn’t use `user`
+        * But we still pass it down
+
+        That unnecessary passing = Prop Drilling
+
+        ---
+
+        # 🎯 Why It Is Bad?
+
+        When app becomes big:
+
+        * Too many props
+        * Hard to manage
+        * Hard to maintain
+        * Code becomes messy
+
+        ---
+
+        # 🛠 How To Avoid Prop Drilling?
+
+        ### 1️⃣ Context API (Built-in React solution)
+
+        Instead of passing manually,
+        React provides global access.
+
+        ---
+
+        ### 2️⃣ State Management Libraries
+
+        * Redux
+        * Zustand
+        * Recoil
+
+        Used in large applications.
+
+        ---
+
+        # 🧠 Simple Analogy
+
+        Prop drilling is like:
+
+        You want to give money to your friend
+        But you give it to your neighbor
+        Then neighbor gives to someone else
+        Then finally your friend gets it
+
+        Instead of directly giving it.
+
+        ---
+
+        # 🔥 When Is It Okay?
+
+        If components are just 1–2 levels deep → it's fine.
+
+        Prop drilling becomes a problem when:
+
+        * 3+ levels deep
+        * Many props
+        * Large app
+
+        ---
+
+        # TL;DR
+
+        Prop drilling = passing props through many components just to reach a deeply nested child.
