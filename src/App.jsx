@@ -8,6 +8,10 @@ import Header from "./header";
 import Footer from "./footer";
 import Useref from "./useRef";
 import Timer from "./timer";
+import LightBulb from "./rollingUpState-unoptimalRerenders/LightBulb";
+
+
+
 
 function App() {
   return (
@@ -22,6 +26,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/useRef" element={<Useref/>}/>
             <Route path="/timer" element={<Timer/>}/>
+            <Route path="/lightBulb" element={<LightBulb/>}/>
           </Route>
           <Route path="*" element={<Nopage />} />{" "}
           {/* This "*" will catch all the routes other then defined one's to show the Nopage component */}

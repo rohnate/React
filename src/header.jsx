@@ -8,6 +8,7 @@ export default function Header() {
       <Link to="/about">About</Link>
       <Link to="/useRef">useRef</Link>
       <Link to="/timer">Timer</Link>
+      <Link to="/lightBulb">LightBulb - StateExpreiment</Link>
     </div>
   );
 }
