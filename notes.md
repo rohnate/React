@@ -418,7 +418,7 @@
         `useNavigate()` lets you change page using JavaScript instead of clicking a link.
 
 
-# 🧠 What is Prop Drilling?
+# What is Prop Drilling?
 
         Prop drilling happens when:
 
@@ -553,3 +553,138 @@
         # TL;DR
 
         Prop drilling = passing props through many components just to reach a deeply nested child.
+
+
+# What is Context API?
+
+        Context API is a React feature that lets you:
+
+        👉 Share data globally
+        👉 Without passing props manually through every component
+
+        ---
+
+        # 🔥 Why We Need It?
+
+        Remember prop drilling?
+
+        Instead of:
+
+        ```
+        App → Parent → Child → GrandChild
+        ```
+
+        Passing `user` again and again...
+
+        We use **Context API** to give data directly to any component.
+
+        ---
+
+        # 🎯 Simple Meaning
+
+        Context API = Global data storage inside React.
+
+        It allows:
+
+        * Any component to access data
+        * No matter how deep it is
+
+        ---
+
+        # 🧩 Real-Life Analogy
+
+        Think of WiFi in your house.
+
+        You don’t connect internet cable to every room.
+
+        You install WiFi router once.
+
+        Every room can access internet.
+
+        👉 Context = WiFi
+        👉 Components = Rooms
+
+        ---
+
+        # 🛠 How It Works (3 Steps)
+
+        ## 1️⃣ Create Context
+
+        ```jsx
+        import { createContext } from "react";
+
+        export const UserContext = createContext();
+        ```
+
+        ---
+
+        ## 2️⃣ Provide Data
+
+        Wrap components with Provider.
+
+        ```jsx
+        <UserContext.Provider value="Rahul">
+        <App />
+        </UserContext.Provider>
+        ```
+
+        Now all children inside `<App />` can access "Rahul".
+
+        ---
+
+        ## 3️⃣ Use Context
+
+        Inside any child:
+
+        ```jsx
+        import { useContext } from "react";
+        import { UserContext } from "./UserContext";
+
+        function GrandChild() {
+        const user = useContext(UserContext);
+        return <h1>{user}</h1>;
+        }
+        ```
+
+        No prop drilling needed ✅
+
+        ---
+
+        # 🔥 When To Use Context?
+
+        Good for:
+
+        * Theme (dark/light mode)
+        * Logged-in user
+        * Language settings
+        * Global settings
+
+        Not ideal for:
+
+        * Very frequently changing state (performance reasons)
+        * Very large apps (Redux better)
+
+        ---
+
+        # ⚠️ Important Concept
+
+        Context avoids prop drilling
+        But it does NOT replace all state management.
+
+        Use it wisely.
+
+        ---
+
+        # 🧠 Internal Idea
+
+        React stores context value
+        Any component using `useContext()` subscribes to it
+        If value changes → those components re-render
+
+        ---
+
+        # TL;DR
+
+        Context API lets you share data globally in React
+        Without passing props manually through every component.
+
