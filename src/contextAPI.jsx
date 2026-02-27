@@ -2,17 +2,25 @@ import { createContext, useContext, useState } from "react";
 
 const NameContext = createContext();
 
-export default function ContextAPI() {
+// Creating our own custom provider, a cleaner way to write context
+function NameProvider({ children }) {
   const [greet, setGreet] = useState(true);
+  return (
+    <NameContext.Provider
+      value={{ greet: greet, setGreet: setGreet, name: "Rahul" }}
+    >
+      {children}
+    </NameContext.Provider>
+  );
+}
 
+export default function ContextAPI() {
   return (
     <div>
       <h1>Context API</h1>
-      <NameContext.Provider
-        value={{ greet: greet, setGreet: setGreet, name: "Rahul" }}
-      >
+      <NameProvider>
         <First />
-      </NameContext.Provider>
+      </NameProvider>
     </div>
   );
 }
@@ -42,7 +50,9 @@ function Third() {
   }
   return (
     <div>
-      {greet ? <h3>{name}, this is directly comming from first parent component.</h3> : null}
+      {greet ? (
+        <h3>{name}, this is directly comming from top parent component.</h3>
+      ) : null}
       <button onClick={click}>Click here</button>
     </div>
   );
