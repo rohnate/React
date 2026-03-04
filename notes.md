@@ -576,7 +576,7 @@
 
         Passing `user` again and again...
 
-        We use **Context API** to give data directly to any component.
+        We use Context API to give data directly to any component.
 
         ---
 
@@ -688,3 +688,138 @@
         Context API lets you share data globally in React
         Without passing props manually through every component.
 
+# What is a Custom Hook?
+
+        A Custom Hook is just a JavaScript function that uses React hooks (`useState`, `useEffect`, etc.) and lets you reuse logic in multiple components.
+
+        It is called a hook because it follows the same rules as React hooks.
+
+        ---
+
+        # 🎯 Why Custom Hooks Exist
+
+        Suppose you write the same logic again and again in different components.
+
+        Example:
+        Fetching data from an API.
+
+        ```jsx
+        useEffect(() => {
+        fetch("/api/users")
+            .then((res) => res.json())
+            .then((data) => setUsers(data));
+        }, []);
+        ```
+
+        If you use this in many components → your code becomes repetitive.
+
+        So instead we create a custom hook.
+
+        ---
+
+        # 🔧 Example of a Custom Hook
+
+        ### Step 1 — Create a custom hook
+
+        ```jsx
+        function useCounter() {
+        const [count, setCount] = useState(0);
+
+        function increase() {
+            setCount((c) => c + 1);
+        }
+
+        return { count, increase };
+        }
+        ```
+
+        Notice the name:
+
+        ```
+        useCounter
+        ```
+
+        Custom hooks must start with `use`.
+
+        ---
+
+        ### Step 2 — Use it inside components
+
+        ```jsx
+        function App() {
+        const { count, increase } = useCounter();
+
+        return (
+            <div>
+            <h1>{count}</h1>
+            <button onClick={increase}>Increase</button>
+            </div>
+        );
+        }
+        ```
+
+        Now any component can reuse this logic.
+
+        ---
+
+        # 🧩 What Custom Hooks Help With
+
+        They help you reuse:
+
+        * state logic
+        * side effects
+        * event logic
+        * API calls
+        * authentication logic
+
+        ---
+
+        # 🔥 Real Example Developers Use
+
+        Example: detecting window width.
+
+        ```jsx
+        function useWindowWidth() {
+        const [width, setWidth] = useState(window.innerWidth);
+
+        useEffect(() => {
+            function handleResize() {
+            setWidth(window.innerWidth);
+            }
+
+            window.addEventListener("resize", handleResize);
+
+            return () => window.removeEventListener("resize", handleResize);
+        }, []);
+
+        return width;
+        }
+        ```
+
+        Use it anywhere:
+
+        ```jsx
+        const width = useWindowWidth();
+        ```
+
+        ---
+
+        # ⚠️ Rules for Custom Hooks
+
+        1️⃣ Must start with `use`
+        2️⃣ Only call hooks at top level
+        3️⃣ Can only be used inside React components or other hooks
+
+        ---
+
+        # 🧠 Simple Way to Think
+
+        Component → returns UI
+
+        Custom Hook → returns logic
+
+        ---
+
+        # TL;DR
+
+        Custom Hook = a reusable function that uses React hooks to share logic between components.

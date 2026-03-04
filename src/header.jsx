@@ -10,6 +10,7 @@ export default function Header() {
       <Link to="/timer">Timer</Link>
       <Link to="/lightBulb">LightBulb - StateExpreiment</Link>
       <Link to="/contextApi">Context-API</Link>
+      <Link to="/customHook">Custom-Hook</Link>
     </div>
   );
 }

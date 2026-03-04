@@ -10,6 +10,7 @@ import Useref from "./useRef";
 import Timer from "./timer";
 import LightBulb from "./rollingUpState-unoptimalRerenders/LightBulb";
 import ContextAPI from "./contextAPI";
+import CustomHook from "./customHook";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/timer" element={<Timer/>}/>
             <Route path="/lightBulb" element={<LightBulb/>}/>
             <Route path="/contextApi" element={<ContextAPI/>}/>
+            <Route path="/customHook" element={<CustomHook/>}/>
           </Route>
           <Route path="*" element={<Nopage />} />{" "}
           {/* This "*" will catch all the routes other then defined one's to show the Nopage component */}
