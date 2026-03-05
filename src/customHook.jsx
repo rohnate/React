@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFetch } from "./hooks/useFetch";
+import { useFetch, usePostTitle } from "./hooks/useFetch";
 
 // Defining the custome Hook
 function useCounter() {
@@ -18,7 +18,8 @@ function useCounter() {
 
 export default function CustomHook() {
   const { count, increaseCount } = useCounter(); // using the custom Hook after de-structuring the object
-  const postTitle = useFetch(); // calling custom useFetch hook from hooks folder
+  const postTitle = usePostTitle(); // calling custom postTitlel hook from hooks folder
+  const data = useFetch("https://jsonplaceholder.typicode.com/posts/6")
   return (
     <div>
       <h1>You are in Custom-Hooks</h1>
@@ -33,8 +34,20 @@ export default function CustomHook() {
           marginTop: 20,
         }}
       >
-        <h3>This is from useFetch Hook</h3>
+        <h3>This is from usePostTitle Hook</h3>
         <p>{postTitle}</p>
+      </div>
+      <br />
+      <div
+        style={{
+          backgroundColor: "slateblue",
+          padding: 20,
+          borderRadius: 30,
+          marginTop: 20,
+        }}
+      >
+        <h3>This is from useFetch Hook</h3>
+        <p>{data.title}</p>
       </div>
     </div>
   );

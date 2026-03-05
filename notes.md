@@ -823,3 +823,135 @@
         # TL;DR
 
         Custom Hook = a reusable function that uses React hooks to share logic between components.
+
+
+# what is the diff between export default function and export function ?
+
+        1️⃣ `export default function`
+
+        This exports one main thing from a file.
+
+        Example:
+
+        ```javascript
+        export default function Header() {
+        return <h1>Header</h1>;
+        }
+        ```
+
+        Now when you import it:
+
+        ```javascript
+        import Header from "./Header";
+        ```
+
+        Important things:
+
+        * You don’t need curly braces `{}`
+        * You can rename it during import
+
+        Example:
+
+        ```javascript
+        import MyHeader from "./Header";
+        ```
+
+        Still works ✅
+
+        ---
+
+        2️⃣ `export function`
+
+        This is called a named export.
+
+        Example:
+
+        ```javascript
+        export function Header() {
+        return <h1>Header</h1>;
+        }
+        ```
+
+        Now you must import it like this:
+
+        ```javascript
+        import { Header } from "./Header";
+        ```
+
+        Important:
+
+        * You must use `{}`
+        * The name must match
+
+        This will NOT work:
+
+        ```javascript
+        import MyHeader from "./Header"; ❌
+        ```
+
+        ---
+
+        # 🧠 Example with Multiple Exports
+
+        ```javascript
+        export function Header() {}
+        export function Footer() {}
+        export function Navbar() {}
+        ```
+
+        Import them like:
+
+        ```javascript
+        import { Header, Footer, Navbar } from "./layout";
+        ```
+
+        ---
+
+        # 🔥 Mixing Both
+
+        You can also do:
+
+        ```javascript
+        export default function App() {}
+        export function Header() {}
+        export function Footer() {}
+        ```
+
+        Import:
+
+        ```javascript
+        import App from "./file";
+        import { Header, Footer } from "./file";
+        ```
+
+        ---
+
+        # 🎯 Rule Developers Follow
+
+        Usually:
+
+        * default export → main component
+        * named exports → helper functions / hooks
+
+        Example:
+
+        ```
+        App.jsx
+        ```
+
+        ```javascript
+        export default App
+        export function useUser()
+        export function helper()
+        ```
+
+        ---
+
+        # TL;DR
+
+        | Type             | Import                       |
+        | ---------------- | ---------------------------- |
+        | `export default` | `import X from "./file"`     |
+        | `export`         | `import { X } from "./file"` |
+
+        ---
